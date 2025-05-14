@@ -6,3 +6,307 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+/* Obsidian app */
+.workspace-tab-header-container {
+	display: flex;
+	flex-direction: row;
+}
+
+/* Zone Time View Container */
+.zone-time-view-container {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.zone-time-title {
+	margin-top: 0;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	align-items: center;
+}
+
+/* New container for summary text AND month/year picker above heatmap */
+.zone-time-summary-container {
+	margin-bottom: 10px; /* Space below summary, above heatmap */
+	display: flex; /* Arrange summary text and picker in a row */
+	justify-content: space-between; /* Summary text to the left, picker to the right */
+	align-items: center; /* Vertically align items */
+}
+
+/* Styling for the new input type=month */
+.year-month-input {
+	background-color: var(--background-secondary);
+	color: var(--text-normal);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	padding: 5px 8px; /* Adjust padding to be similar to buttons/other inputs */
+	font-size: 14px; /* Match other controls */
+	/* appearance: none; */ /* Usually not needed for input type=month if default styling is OK */
+	width: 150px; /* Explicit width to make it more compact */
+	/* Consider width or max-width if needed */
+	/* margin-left: 10px; */ /* If extra space is needed from summary text, but space-between should handle it */
+}
+
+/* Header Controls (Year/Month Selector, Record Button) - Now at the bottom */
+.zone-time-header-controls {
+	display: flex;
+	/* justify-content: space-between; */ /* Changed */
+	justify-content: flex-end; /* To keep selectors and button to the right */
+	align-items: center;
+	margin-top: 15px;
+	padding: 0 5px;
+}
+
+/* Renamed from .zone-time-week-info */
+.zone-time-period-info {
+	font-size: 14px;
+	color: var(--text-normal);
+	font-weight: 500;
+}
+
+.zone-time-right-controls {
+	display: flex;
+	align-items: center;
+}
+
+/* Heatmap Container - For Scrolling */
+.heatmap-container {
+	flex-grow: 1; /* Takes remaining space */
+	overflow: auto; /* Enables scrolling for the heatmap grid */
+	padding: 15px; /* Increased padding inside the border */
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px; /* Rounded corners like GitHub */
+}
+
+/* New Orientation: Grid for Heatmap (Days on Top, Months on Left) */
+.heatmap-grid-new-orientation {
+	display: flex;
+	flex-direction: column; /* Stack days-header-row and cells-grid vertically */
+	width: fit-content; /* Allow grid to define its own width for scrolling */
+}
+
+/* Top Row: Day Headers (Sun-Sat) */
+.heatmap-days-header-row {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 2px;
+	position: sticky; /* Make day headers sticky */
+	top: 0;
+	z-index: 10; /* Ensure it's above cells */
+}
+
+.heatmap-day-top-label {
+	width: 30px; /* Changed from 16px to match full cell column width */
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 11px;
+	color: var(--text-muted);
+	margin: 0; /* Changed from 0 2px; horizontal margin removed as width now spans full column */
+}
+
+/* Grid for Cells (Weeks as Rows, Days as Columns) */
+.heatmap-cells-grid-new-orientation {
+	display: flex;
+	flex-direction: column; /* Stack week rows vertically */
+}
+
+.heatmap-week-row-new {
+	display: flex;
+	flex-direction: row;
+	height: 20px; /* Sum of cell height + vertical margins */
+}
+
+.heatmap-cell {
+	width: 16px;
+	height: 16px;
+	margin: 2px 7px; /* Changed from 2px to 2px 7px (top/bottom 2px, left/right 7px) */
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.heatmap-cell-placeholder {
+	width: 16px;
+	height: 16px;
+	margin: 2px 7px; /* Keeps the alignment with 30px columns */
+	border-radius: 3px;
+	box-sizing: border-box;
+
+	/* Make placeholders visually empty */
+	background-color: transparent;
+	border: none; /* Or 1px solid transparent if preferred for layout consistency */
+}
+
+/* Intensity colors for heat map cells */
+.intensity-0 {
+	background-color: #ebedf0;
+	border: 1px solid rgba(27, 31, 35, 0.06);
+}
+
+.intensity-1 {
+	background-color: #9be9a8;
+}
+
+.intensity-2 {
+	background-color: #40c463;
+}
+
+.intensity-3 {
+	background-color: #30a14e;
+}
+
+.intensity-4 {
+	background-color: #216e39;
+}
+
+/* Tooltips for cells */
+.has-tooltip {
+	cursor: pointer;
+	position: relative;
+}
+
+/* Tooltip */
+.heatmap-tooltip {
+	display: none;
+	position: fixed;
+	background-color: #24292e;
+	color: #ffffff;
+	padding: 8px 12px;
+	border-radius: 6px;
+	font-size: 12px;
+	white-space: nowrap;
+	z-index: 1000;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+	font-weight: 500;
+	pointer-events: none;
+}
+
+/* Triangle/arrow for tooltip (default: above cell, arrow points down) */
+.heatmap-tooltip::after {
+	content: "";
+	position: absolute;
+	top: 100%; /* At the bottom of the tooltip, pointing down */
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 6px;
+	border-style: solid;
+	border-color: #24292e transparent transparent transparent;
+}
+
+/* Tooltip below cell, arrow points up */
+.heatmap-tooltip.tooltip-below::after {
+	top: auto;
+	bottom: 100%; /* At the top of the tooltip, pointing up */
+	border-color: transparent transparent #24292e transparent;
+}
+
+/* Adjust tooltip position for cells near left edge */
+.heatmap-day-row .heatmap-cell:nth-child(-n + 3).has-tooltip:hover::after {
+	left: 0;
+	transform: translateX(0);
+}
+
+.heatmap-day-row .heatmap-cell:nth-child(-n + 3).has-tooltip:hover::before {
+	left: 8px;
+	transform: translateX(0);
+}
+
+/* Adjust tooltip position for cells near right edge */
+.heatmap-day-row .heatmap-cell:nth-last-child(-n + 3).has-tooltip:hover::after {
+	left: auto;
+	right: 0;
+	transform: translateX(0);
+}
+
+.heatmap-day-row
+	.heatmap-cell:nth-last-child(-n + 3).has-tooltip:hover::before {
+	left: auto;
+	right: 8px;
+	transform: translateX(0);
+}
+
+/* Legend for color intensity */
+.heatmap-legend {
+	display: flex;
+	align-items: center;
+	margin-top: 15px;
+	font-size: 12px;
+	justify-content: flex-end;
+	color: var(--text-muted);
+	padding-right: 5px; /* Align with heatmap content */
+}
+
+.legend-cell {
+	width: 14px;
+	height: 14px;
+	margin: 0 3px;
+	border-radius: 3px;
+}
+
+.heatmap-legend span {
+	margin: 0 6px;
+}
+
+/* Dark mode support */
+.theme-dark .intensity-0 {
+	background-color: #161b22;
+	border: 1px solid rgba(240, 246, 252, 0.1);
+}
+
+.theme-dark .intensity-1 {
+	background-color: #0e4429;
+}
+
+.theme-dark .intensity-2 {
+	background-color: #006d32;
+}
+
+.theme-dark .intensity-3 {
+	background-color: #26a641;
+}
+
+.theme-dark .intensity-4 {
+	background-color: #39d353;
+}
+
+/* Dark theme tooltip */
+.theme-dark .heatmap-tooltip {
+	background-color: #31373d;
+	color: #e6edf3;
+}
+
+.theme-dark .heatmap-tooltip::after {
+	border-top-color: #31373d; /* Default for tooltip above */
+}
+
+.theme-dark .heatmap-tooltip.tooltip-below::after {
+	border-bottom-color: #31373d; /* For tooltip below */
+	border-top-color: transparent; /* Ensure other direction is cleared */
+}
+
+/* REMOVE dark theme styling for placeholders as they are now transparent */
+/* .theme-dark .heatmap-cell-placeholder {
+	background-color: #161b22;
+	border: 1px solid rgba(240, 246, 252, 0.1);
+} */
+
+.zone-time-record-button {
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	border: none;
+	border-radius: 4px;
+	padding: 7px 15px; /* Adjusted padding to match dropdown height better */
+	cursor: pointer;
+	font-size: 14px;
+	transition: background-color 0.2s ease;
+}
+
+.zone-time-record-button:hover {
+	background-color: var(--interactive-accent-hover);
+}
