@@ -1,11 +1,10 @@
 {
 	"id": "zone-time",
 	"name": "Zone Time",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minAppVersion": "0.15.0",
 	"description": "Track your daily zone time with a GitHub-like contribution heatmap.",
 	"author": "Young Zhong",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://github.com/TTtuntuntutu",
 	"isDesktopOnly": false
 }
