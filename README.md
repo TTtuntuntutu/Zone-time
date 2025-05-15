@@ -35,35 +35,3 @@ An Obsidian plugin to track your daily zone time with a GitHub-like contribution
 1.  Download the latest release from GitHub.
 2.  Extract the zip file into your Obsidian vault's `.obsidian/plugins` folder (e.g., `VaultFolder/.obsidian/plugins/zone-time/`).
 3.  Enable the plugin in Obsidian settings.
-
-## Development
-
-This plugin is built using the Obsidian Plugin API and TypeScript.
-
-### Setup
-
-```bash
-# Clone this repository
-git clone https://github.com/yourusername/obsidian-zone-time.git
-
-# Navigate into the project
-cd obsidian-zone-time
-
-# Install dependencies
-yarn install
-
-# Build the plugin
-yarn build
-```
-
-### Watch Mode
-
-```bash
-yarn dev
-```
-
-This will automatically recompile the plugin when you make changes to the source files.
-
-## License
-
-[MIT](LICENSE)
