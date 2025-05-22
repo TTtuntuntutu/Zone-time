@@ -43,7 +43,7 @@ export default class ZoneTimePlugin extends Plugin {
 		// Add a command to show the study time heatmap in sidebar
 		this.addCommand({
 			id: "show-zone-time-heatmap",
-			name: "Show Zone Time Heatmap",
+			name: "Show Heatmap",
 			callback: () => {
 				this.activateView();
 			},
@@ -52,7 +52,7 @@ export default class ZoneTimePlugin extends Plugin {
 		// Add another command to record study time
 		this.addCommand({
 			id: "record-zone-time",
-			name: "Record Zone Time",
+			name: "Record Time",
 			callback: () => {
 				new ZoneTimeInputModal(this.app, this).open();
 			},
@@ -66,7 +66,8 @@ export default class ZoneTimePlugin extends Plugin {
 	}
 
 	async onunload() {
-		this.app.workspace.detachLeavesOfType(ZONE_TIME_VIEW_TYPE);
+		// Remove the detachLeavesOfType call as it's an antipattern
+		// Let Obsidian handle the view lifecycle
 	}
 
 	async loadSettings() {
@@ -549,18 +550,21 @@ class ZoneTimeView extends ItemView {
 		if (!text) return;
 
 		this.tooltipEl.textContent = text;
-		this.tooltipEl.style.display = "block";
-		this.tooltipEl.removeClass("tooltip-below"); // Reset class
+		this.tooltipEl.addClass("visible");
+		this.tooltipEl.removeClass("tooltip-below");
 
 		const rect = target.getBoundingClientRect();
 		const tooltipRect = this.tooltipEl.getBoundingClientRect();
 
-		let top = rect.top - tooltipRect.height - 10; // 10px for spacing + triangle
+		let top = rect.top - tooltipRect.height - 10;
 		let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
 
 		if (top < 10) {
-			top = rect.bottom + 10; // Show below if not enough space above
+			top = rect.bottom + 10;
 			this.tooltipEl.addClass("tooltip-below");
+			this.tooltipEl.setAttribute("data-position", "bottom");
+		} else {
+			this.tooltipEl.setAttribute("data-position", "top");
 		}
 
 		if (left < 10) left = 10;
@@ -568,12 +572,13 @@ class ZoneTimeView extends ItemView {
 			left = window.innerWidth - tooltipRect.width - 10;
 		}
 
-		this.tooltipEl.style.top = `${top}px`;
-		this.tooltipEl.style.left = `${left}px`;
+		this.tooltipEl.style.setProperty("--tooltip-top", `${top}px`);
+		this.tooltipEl.style.setProperty("--tooltip-left", `${left}px`);
 	}
 
 	hideTooltip() {
-		this.tooltipEl.style.display = "none";
+		this.tooltipEl.removeClass("visible");
+		this.tooltipEl.removeAttribute("data-position");
 	}
 
 	// generateWeeksData is now adjusted for monthly view
