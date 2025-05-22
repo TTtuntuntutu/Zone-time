@@ -1,7 +1,7 @@
 {
 	"id": "zone-time",
 	"name": "Zone Time",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "0.15.0",
 	"description": "Track your daily zone time with a GitHub-like contribution heatmap.",
 	"author": "Young Zhong",
