@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-zone-time",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Track your daily zone time with a GitHub-like contribution heatmap",
 	"main": "main.js",
 	"scripts": {

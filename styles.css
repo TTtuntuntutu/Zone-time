@@ -183,8 +183,9 @@ If your plugin does not need CSS, delete this file.
 	z-index: 1000;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	pointer-events: none;
-	top: var(--tooltip-top, 0);
-	left: var(--tooltip-left, 0);
+	/* Position using CSS custom properties that can be overridden by themes */
+	top: var(--heatmap-tooltip-top, 0);
+	left: var(--heatmap-tooltip-left, 0);
 }
 
 .heatmap-tooltip.visible {

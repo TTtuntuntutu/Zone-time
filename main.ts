@@ -572,8 +572,9 @@ class ZoneTimeView extends ItemView {
 			left = window.innerWidth - tooltipRect.width - 10;
 		}
 
-		this.tooltipEl.style.setProperty("--tooltip-top", `${top}px`);
-		this.tooltipEl.style.setProperty("--tooltip-left", `${left}px`);
+		// Use CSS custom properties with semantic names for positioning
+		this.tooltipEl.style.setProperty("--heatmap-tooltip-top", `${top}px`);
+		this.tooltipEl.style.setProperty("--heatmap-tooltip-left", `${left}px`);
 	}
 
 	hideTooltip() {
