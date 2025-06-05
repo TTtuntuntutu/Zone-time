@@ -249,7 +249,7 @@ class ZoneTimeView extends ItemView {
 		// Create tooltip element once
 		this.tooltipEl = document.createElement("div");
 		this.tooltipEl.addClass("heatmap-tooltip");
-		document.body.appendChild(this.tooltipEl); // Append to body to avoid clipping
+		this.contentEl.appendChild(this.tooltipEl); // Append to view's contentEl
 	}
 
 	getViewType(): string {
@@ -573,8 +573,8 @@ class ZoneTimeView extends ItemView {
 		}
 
 		// Use CSS custom properties with semantic names for positioning
-		this.tooltipEl.style.setProperty("--heatmap-tooltip-top", `${top}px`);
-		this.tooltipEl.style.setProperty("--heatmap-tooltip-left", `${left}px`);
+		this.tooltipEl.style.setProperty("--heatmap-tooltip-top", top + "px");
+		this.tooltipEl.style.setProperty("--heatmap-tooltip-left", left + "px");
 	}
 
 	hideTooltip() {

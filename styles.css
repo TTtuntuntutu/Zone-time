@@ -171,40 +171,32 @@ If your plugin does not need CSS, delete this file.
 	position: relative;
 }
 
-/* Tooltip visibility and positioning */
+/* Tooltip base style (hidden by default) */
 .heatmap-tooltip {
-	display: none;
-	position: fixed;
-	background-color: var(--background-primary);
-	color: var(--text-normal);
-	padding: 8px 12px;
-	border-radius: 4px;
-	font-size: 12px;
-	z-index: 1000;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	pointer-events: none;
-	/* Position using CSS custom properties that can be overridden by themes */
-	top: var(--heatmap-tooltip-top, 0);
-	left: var(--heatmap-tooltip-left, 0);
+  position: fixed; /* Use fixed positioning for placement relative to viewport */
+  background-color: var(--background-secondary, #333); /* Use Obsidian variables for theming */
+  color: var(--text-normal, #fff);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  z-index: 1000; /* Ensure it's above other elements */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  white-space: nowrap; /* Prevent tooltip text from wrapping */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: add a subtle shadow */
+  /* Position using CSS custom properties that will be set by JavaScript */
+  top: var(--heatmap-tooltip-top);
+  left: var(--heatmap-tooltip-left);
 }
 
+/* Tooltip visible state */
 .heatmap-tooltip.visible {
-	display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Tooltip positioning */
-.heatmap-tooltip[data-position] {
-	display: block;
-}
-
-.heatmap-tooltip[data-position="top"] {
-	transform: translateY(-100%);
-}
-
-.heatmap-tooltip[data-position="bottom"] {
-	transform: translateY(0);
-}
-
+/* Optional: Arrow styling (kept from original, may need review with new positioning) */
 /* Triangle/arrow for tooltip (default: above cell, arrow points down) */
 .heatmap-tooltip::after {
 	content: "";
@@ -214,14 +206,16 @@ If your plugin does not need CSS, delete this file.
 	transform: translateX(-50%);
 	border-width: 6px;
 	border-style: solid;
-	border-color: #24292e transparent transparent transparent;
+	/* Arrow color should ideally also use CSS variables or match tooltip background */
+	border-color: var(--background-secondary, #333) transparent transparent transparent;
 }
 
 /* Tooltip below cell, arrow points up */
 .heatmap-tooltip.tooltip-below::after {
 	top: auto;
 	bottom: 100%; /* At the top of the tooltip, pointing up */
-	border-color: transparent transparent #24292e transparent;
+	/* Arrow color should ideally also use CSS variables or match tooltip background */
+	border-color: transparent transparent var(--background-secondary, #333) transparent;
 }
 
 /* Adjust tooltip position for cells near left edge */
